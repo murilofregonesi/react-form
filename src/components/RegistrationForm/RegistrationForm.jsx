@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { TextField, Button, FormControlLabel, Switch } from "@mui/material";
 
-function RegistrationForm() {
+function RegistrationForm({onSubmit}) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [cpf, setCpf] = useState("");
+  const [news, setNews] = useState(true);
+  const [promo, setPromo] = useState(false);
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        console.log(e);
+        onSubmit({name, surname, cpf, news, promo});
       }}
     >
       <TextField
@@ -38,8 +40,21 @@ function RegistrationForm() {
         fullWidth
       />
 
-      <FormControlLabel label="Novidades" control={<Switch defaultChecked />} />
-      <FormControlLabel label="Promoções" control={<Switch defaultChecked />} />
+      <FormControlLabel
+        label="Novidades"
+        control={
+          <Switch checked={news} onChange={(e) => setNews(e.target.checked)} />
+        }
+      />
+      <FormControlLabel
+        label="Promoções"
+        control={
+          <Switch
+            checked={promo}
+            onChange={(e) => setPromo(e.target.checked)}
+          />
+        }
+      />
 
       <Button type="submit" variant="contained">
         Cadastrar

@@ -12,9 +12,13 @@ function App() {
   return (
     <Container maxWidth="sm">
       <Typography component="h1" variant="h3" align="center">Formulário Cadastro</Typography>
-      <RegistrationForm/>
+      <RegistrationForm onSubmit={handleSubmit} />
     </Container>
   );
+}
+
+function handleSubmit(data) {
+  console.log(data);
 }
 
 export default App;
