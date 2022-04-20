@@ -1,18 +1,28 @@
 import React, { useState } from "react";
 import { TextField, Button, FormControlLabel, Switch } from "@mui/material";
 
-function RegistrationForm({onSubmit}) {
+function RegistrationForm({
+  onSubmit,
+  validateCPF,
+  validateName,
+  validateSurname,
+}) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [cpf, setCpf] = useState("");
   const [news, setNews] = useState(true);
   const [promo, setPromo] = useState(false);
+  const [errors, setErrors] = useState({
+    cpf: { valid: true, text: "" },
+    name: { valid: true, text: "" },
+    surname: { valid: true, text: "" },
+  });
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        onSubmit({name, surname, cpf, news, promo});
+        onSubmit({ name, surname, cpf, news, promo });
       }}
     >
       <TextField
@@ -22,6 +32,12 @@ function RegistrationForm({onSubmit}) {
         label="Nome"
         margin="dense"
         fullWidth
+        error={!errors.name.valid}
+        helperText={errors.name.text}
+        onBlur={(e) => {
+          const error = validateName(e.target.value);
+          setErrors({ ...errors, name: error });
+        }}
       />
       <TextField
         value={surname}
@@ -30,6 +46,12 @@ function RegistrationForm({onSubmit}) {
         label="Sobrenome"
         margin="dense"
         fullWidth
+        error={!errors.surname.valid}
+        helperText={errors.surname.text}
+        onBlur={(e) => {
+          const error = validateSurname(e.target.value);
+          setErrors({ ...errors, surname: error });
+        }}
       />
       <TextField
         value={cpf}
@@ -38,6 +60,12 @@ function RegistrationForm({onSubmit}) {
         label="CPF"
         margin="dense"
         fullWidth
+        error={!errors.cpf.valid}
+        helperText={errors.cpf.text}
+        onBlur={(e) => {
+          const error = validateCPF(e.target.value);
+          setErrors({ ...errors, cpf: error });
+        }}
       />
 
       <FormControlLabel
