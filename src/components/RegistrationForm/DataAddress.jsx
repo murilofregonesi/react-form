@@ -1,25 +1,71 @@
-import React from "react";
+import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
 
 function DataAddress({ onSubmit }) {
+  const [cep, setCep] = useState("");
+  const [address, setAddress] = useState("");
+  const [number, setNumber] = useState("");
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        onSubmit();
+        onSubmit({ cep, address, number, state, city });
       }}
     >
-      <TextField id="cep" label="CEP" type="number" margin="dense" />
       <TextField
+        value={cep}
+        onChange={(e) => {
+          setCep(e.target.value);
+        }}
+        id="cep"
+        label="CEP"
+        type="number"
+        margin="dense"
+      />
+      <TextField
+        value={address}
+        onChange={(e) => {
+          setAddress(e.target.value);
+        }}
         id="address"
         label="Endereço"
         type="text"
         margin="dense"
         fullWidth
       />
-      <TextField id="number" label="Número" type="number" margin="dense" />
-      <TextField id="state" label="Estado" type="text" margin="dense" />
-      <TextField id="city" label="Cidade" type="text" margin="dense" />
+      <TextField
+        value={number}
+        onChange={(e) => {
+          setNumber(e.target.value);
+        }}
+        id="number"
+        label="Número"
+        type="number"
+        margin="dense"
+      />
+      <TextField
+        value={state}
+        onChange={(e) => {
+          setState(e.target.value);
+        }}
+        id="state"
+        label="Estado"
+        type="text"
+        margin="dense"
+      />
+      <TextField
+        value={city}
+        onChange={(e) => {
+          setCity(e.target.value);
+        }}
+        id="city"
+        label="Cidade"
+        type="text"
+        margin="dense"
+      />
       <Button type="submit" variant="contained">
         Cadastrar
       </Button>

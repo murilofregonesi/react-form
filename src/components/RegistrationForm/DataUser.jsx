@@ -17,7 +17,7 @@ function DataUser({ onSubmit, validateCPF, validateName, validateSurname }) {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        onSubmit();
+        onSubmit({ name, surname, cpf, news, promo });
       }}
     >
       <TextField

@@ -1,4 +1,5 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
+import { Stepper, Step, StepLabel, Typography } from "@mui/material";
 import DataUser from "./DataUser";
 import DataLogin from "./DataLogin";
 import DataAddress from "./DataAddress";
@@ -10,19 +11,28 @@ function RegistrationForm({
   validateSurname,
 }) {
   const [currStep, setCurrStep] = useState(0);
+  const [data, setData] = useState({});
 
   const forms = [
-    <DataLogin onSubmit={incrementStep} />,
+    <DataLogin onSubmit={updateForm} />,
     <DataUser
-      onSubmit={incrementStep}
+      onSubmit={updateForm}
       validateCPF={validateCPF}
       validateName={validateName}
       validateSurname={validateSurname}
     />,
-    <DataAddress onSubmit={onSubmit} />,
+    <DataAddress onSubmit={updateForm} />,
+    <Typography variant="h5">Pedido finalizado com sucesso!</Typography>,
   ];
 
-  function incrementStep() {
+  useEffect(() => {
+    if (currStep === forms.length - 1) {
+      onSubmit(data);
+    }
+  });
+
+  function updateForm(newData) {
+    setData({ ...data, ...newData });
     setCurrStep(currStep + 1);
   }
 
@@ -30,7 +40,25 @@ function RegistrationForm({
     setCurrStep(currStep - 1);
   }
 
-  return <Fragment>{forms[currStep]}</Fragment>;
+  return (
+    <Fragment>
+      <Stepper activeStep={currStep}>
+        <Step key={0}>
+          <StepLabel>Login</StepLabel>
+        </Step>
+        <Step key={1}>
+          <StepLabel>Dados pessoais</StepLabel>
+        </Step>
+        <Step key={2}>
+          <StepLabel>Entrega</StepLabel>
+        </Step>
+        <Step key={3}>
+          <StepLabel>Finalização</StepLabel>
+        </Step>
+      </Stepper>
+      {forms[currStep]}
+    </Fragment>
+  );
 }
 
 export default RegistrationForm;
