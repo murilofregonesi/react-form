@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextField, Button, FormControlLabel, Switch } from "@mui/material";
 
-function DataUser({ onSubmit, validateCPF, validateName, validateSurname }) {
+function DataUser({ onSubmit, validations }) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [cpf, setCpf] = useState("");
@@ -12,6 +12,13 @@ function DataUser({ onSubmit, validateCPF, validateName, validateSurname }) {
     name: { valid: true, text: "" },
     surname: { valid: true, text: "" },
   });
+
+  function validateField(event) {
+    const {name, value} = event.target;
+    let newErrors = {...errors};
+    newErrors[name] = validations[name](value);
+    setErrors(newErrors);
+  }
 
   return (
     <form
@@ -24,46 +31,40 @@ function DataUser({ onSubmit, validateCPF, validateName, validateSurname }) {
         value={name}
         onChange={(e) => setName(e.target.value)}
         id="name"
+        name="name"
         label="Nome"
         required
         margin="dense"
         fullWidth
         error={!errors.name.valid}
         helperText={errors.name.text}
-        onBlur={(e) => {
-          const error = validateName(e.target.value);
-          setErrors({ ...errors, name: error });
-        }}
+        onBlur={validateField}
       />
       <TextField
         value={surname}
         onChange={(e) => setSurname(e.target.value)}
         id="surname"
+        name="surname"
         label="Sobrenome"
         required
         margin="dense"
         fullWidth
         error={!errors.surname.valid}
         helperText={errors.surname.text}
-        onBlur={(e) => {
-          const error = validateSurname(e.target.value);
-          setErrors({ ...errors, surname: error });
-        }}
+        onBlur={validateField}
       />
       <TextField
         value={cpf}
         onChange={(e) => setCpf(e.target.value)}
         id="cpf"
+        name="cpf"
         label="CPF"
         required
         margin="dense"
         fullWidth
         error={!errors.cpf.valid}
         helperText={errors.cpf.text}
-        onBlur={(e) => {
-          const error = validateCPF(e.target.value);
-          setErrors({ ...errors, cpf: error });
-        }}
+        onBlur={validateField}
       />
 
       <FormControlLabel

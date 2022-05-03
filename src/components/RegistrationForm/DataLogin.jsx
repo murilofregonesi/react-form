@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
 
-function DataLogin({ onSubmit }) {
+function DataLogin({ onSubmit, validations }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

@@ -4,24 +4,14 @@ import DataUser from "./DataUser";
 import DataLogin from "./DataLogin";
 import DataAddress from "./DataAddress";
 
-function RegistrationForm({
-  onSubmit,
-  validateCPF,
-  validateName,
-  validateSurname,
-}) {
+function RegistrationForm({ onSubmit, validations }) {
   const [currStep, setCurrStep] = useState(0);
   const [data, setData] = useState({});
 
   const forms = [
-    <DataLogin onSubmit={updateForm} />,
-    <DataUser
-      onSubmit={updateForm}
-      validateCPF={validateCPF}
-      validateName={validateName}
-      validateSurname={validateSurname}
-    />,
-    <DataAddress onSubmit={updateForm} />,
+    <DataLogin onSubmit={updateForm} validations={validations} />,
+    <DataUser onSubmit={updateForm} validations={validations} />,
+    <DataAddress onSubmit={updateForm} validations={validations} />,
     <Typography variant="h5">Pedido finalizado com sucesso!</Typography>,
   ];
 
