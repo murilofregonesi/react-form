@@ -14,19 +14,30 @@ function DataUser({ onSubmit, validations }) {
   });
 
   function validateField(event) {
-    const {name, value} = event.target;
-    let newErrors = {...errors};
+    const { name, value } = event.target;
+    let newErrors = { ...errors };
     newErrors[name] = validations[name](value);
     setErrors(newErrors);
   }
 
+  function allowSubmit() {
+    for (let field in errors) {
+      if (!errors[field].valid) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    if (allowSubmit()) {
+      onSubmit({ name, surname, cpf, news, promo });
+    }
+  }
+
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        onSubmit({ name, surname, cpf, news, promo });
-      }}
-    >
+    <form onSubmit={handleSubmit}>
       <TextField
         value={name}
         onChange={(e) => setName(e.target.value)}
@@ -84,7 +95,7 @@ function DataUser({ onSubmit, validations }) {
       />
 
       <Button type="submit" variant="contained">
-        Cadastrar
+        Próximo
       </Button>
     </form>
   );
