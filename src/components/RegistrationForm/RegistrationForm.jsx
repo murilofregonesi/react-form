@@ -4,14 +4,14 @@ import DataUser from "./DataUser";
 import DataLogin from "./DataLogin";
 import DataAddress from "./DataAddress";
 
-function RegistrationForm({ onSubmit, validations }) {
+function RegistrationForm({ onSubmit }) {
   const [currStep, setCurrStep] = useState(0);
   const [data, setData] = useState({});
 
   const forms = [
-    <DataLogin onSubmit={updateForm} validations={validations} />,
-    <DataUser onSubmit={updateForm} validations={validations} />,
-    <DataAddress onSubmit={updateForm} validations={validations} />,
+    <DataLogin onSubmit={updateForm} />,
+    <DataUser onSubmit={updateForm} />,
+    <DataAddress onSubmit={updateForm} />,
     <Typography variant="h5">Pedido finalizado com sucesso!</Typography>,
   ];
 

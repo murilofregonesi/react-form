@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { TextField, Button, FormControlLabel, Switch } from "@mui/material";
+import FormValidation from "../../contexts/FormValidation";
 
-function DataUser({ onSubmit, validations }) {
+function DataUser({ onSubmit }) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [cpf, setCpf] = useState("");
@@ -12,6 +13,8 @@ function DataUser({ onSubmit, validations }) {
     name: { valid: true, text: "" },
     surname: { valid: true, text: "" },
   });
+
+  const validations = useContext(FormValidation);
 
   function validateField(event) {
     const { name, value } = event.target;

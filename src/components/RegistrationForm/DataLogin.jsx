@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { TextField, Button } from "@mui/material";
+import FormValidation from "../../contexts/FormValidation";
 
-function DataLogin({ onSubmit, validations }) {
+function DataLogin({ onSubmit }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({
     password: { valid: true, text: "" },
   });
+
+  const validations = useContext(FormValidation);
 
   function validateField(event) {
     const { name, value } = event.target;

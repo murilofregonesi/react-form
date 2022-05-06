@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { TextField, Button } from "@mui/material";
+import FormValidation from "../../contexts/FormValidation";
 
-function DataAddress({ onSubmit, validations }) {
+function DataAddress({ onSubmit }) {
   const [cep, setCep] = useState("");
   const [address, setAddress] = useState("");
   const [number, setNumber] = useState("");
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
+
+  const validations = useContext(FormValidation);
 
   return (
     <form
