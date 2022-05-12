@@ -1,31 +1,15 @@
 import React, { useContext, useState } from "react";
 import { TextField, Button } from "@mui/material";
 import FormValidation from "../../contexts/FormValidation";
+import useFormErrors from "../../hooks/useFormErrors";
 
 function DataLogin({ onSubmit }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({
-    password: { valid: true, text: "" },
-  });
 
   const validations = useContext(FormValidation);
 
-  function validateField(event) {
-    const { name, value } = event.target;
-    let newErrors = { ...errors };
-    newErrors[name] = validations[name](value);
-    setErrors(newErrors);
-  }
-
-  function allowSubmit() {
-    for (let field in errors) {
-      if (!errors[field].valid) {
-        return false;
-      }
-    }
-    return true;
-  }
+  const [errors, validateField, allowSubmit] = useFormErrors(validations);
 
   function handleSubmit(event) {
     event.preventDefault();

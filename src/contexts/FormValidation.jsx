@@ -1,5 +1,17 @@
 import React from "react";
 
-const FormValidation = React.createContext();
+function dontValidate(value) {
+  console.log("No validation.");
+  return { valid: true, text: "" };
+}
+
+const defaultValidations = {
+  cpf: dontValidate,
+  name: dontValidate,
+  surname: dontValidate,
+  password: dontValidate,
+};
+
+const FormValidation = React.createContext(defaultValidations);
 
 export default FormValidation;

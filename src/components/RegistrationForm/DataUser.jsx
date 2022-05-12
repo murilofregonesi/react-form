@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { TextField, Button, FormControlLabel, Switch } from "@mui/material";
 import FormValidation from "../../contexts/FormValidation";
+import useFormErrors from "../../hooks/useFormErrors";
 
 function DataUser({ onSubmit }) {
   const [name, setName] = useState("");
@@ -8,29 +9,10 @@ function DataUser({ onSubmit }) {
   const [cpf, setCpf] = useState("");
   const [news, setNews] = useState(true);
   const [promo, setPromo] = useState(false);
-  const [errors, setErrors] = useState({
-    cpf: { valid: true, text: "" },
-    name: { valid: true, text: "" },
-    surname: { valid: true, text: "" },
-  });
 
   const validations = useContext(FormValidation);
 
-  function validateField(event) {
-    const { name, value } = event.target;
-    let newErrors = { ...errors };
-    newErrors[name] = validations[name](value);
-    setErrors(newErrors);
-  }
-
-  function allowSubmit() {
-    for (let field in errors) {
-      if (!errors[field].valid) {
-        return false;
-      }
-    }
-    return true;
-  }
+  const [errors, validateField, allowSubmit] = useFormErrors(validations);
 
   function handleSubmit(event) {
     event.preventDefault();

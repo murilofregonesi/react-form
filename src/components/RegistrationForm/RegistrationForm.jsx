@@ -26,10 +26,6 @@ function RegistrationForm({ onSubmit }) {
     setCurrStep(currStep + 1);
   }
 
-  function decrementStep() {
-    setCurrStep(currStep - 1);
-  }
-
   return (
     <Fragment>
       <Stepper activeStep={currStep}>

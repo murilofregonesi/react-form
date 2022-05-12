@@ -16,6 +16,10 @@ function App() {
       <Typography component="h1" variant="h3" align="center">
         Formulário Cadastro
       </Typography>
+
+      {/* No validation (context default) */}
+      {/* <RegistrationForm onSubmit={handleSubmit} /> */}
+      
       <FormValidation.Provider value={validations}>
         <RegistrationForm onSubmit={handleSubmit} />
       </FormValidation.Provider>
